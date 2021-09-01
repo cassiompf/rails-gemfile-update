@@ -1,0 +1,29 @@
+{
+  "name": "rails-gemfile-update",
+  "version": "1.0.0",
+  "description": "Update your gemfile without wasting time looking for each version of the gems. Let the web-scraping technique handle it for you.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cassiompf/rails-gemfile-update.git"
+  },
+  "keywords": [
+    "rails",
+    "gemfile",
+    "update"
+  ],
+  "author": "cassiompf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cassiompf/rails-gemfile-update/issues"
+  },
+  "homepage": "https://github.com/cassiompf/rails-gemfile-update#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "readline": "^1.3.0"
+  }
+}

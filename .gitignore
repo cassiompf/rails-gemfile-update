@@ -1,0 +1,8 @@
+# lock files
+package-lock.json
+
+# node_modules folder
+/node_modules/*
+
+# Dist files
+/dist/*
