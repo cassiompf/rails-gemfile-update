@@ -5,7 +5,7 @@ package-lock.json
 /node_modules/*
 
 # Dist files
-/dist/*
+/dist/Gemfile
 
 # Assets folder
 /src/assets/*
