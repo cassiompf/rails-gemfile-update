@@ -6,3 +6,6 @@ package-lock.json
 
 # Dist files
 /dist/*
+
+# Assets folder
+/src/assets/Gemfile
