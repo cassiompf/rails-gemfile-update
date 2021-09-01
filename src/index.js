@@ -1,5 +1,6 @@
 const fs = require('fs');
 const readline = require('readline');
+let os = require('os')
 
 const lineReader = readline.createInterface({
   input: fs.createReadStream('./src/assets/Gemfile')
@@ -10,14 +11,21 @@ let writer = fs.createWriteStream('./dist/Gemfile', {
 })
 
 lineReader.on('line', (line) => {
-  if (line.includes('gem \'') && !line.trim().startsWith('#')) {
-    const gem = line.split(',')[0].replace('gem', '').trim();
-    console.log(`Atualizando a gem ${gem}`)
+  if (line.trim().startsWith('gem')) {
+    const gem = line.trim().split(',')[0].replace('gem', '');
+    console.log(`Atualizando a gem ${gem}`);
   }
-  writer.write(line + '\r\n');
+  writer.write(line);
+
+  // Break new line
+  writer.write(os.EOL);
 });
 
 lineReader.on('close', () => {
-  console.log('');
+  console.log('=====================================');
+  console.log(' -> O seu Gemfile foi atualizado! <- ');
+  console.log('   Você pode visualizar o arquivo    ');
+  console.log('   que foi gerado na pasta ./dist    ');
+  console.log('=====================================');
   writer.end();
 });
