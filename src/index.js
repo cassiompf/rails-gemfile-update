@@ -1,12 +1,12 @@
 const fs = require('fs');
 const readline = require('readline');
-let os = require('os')
+const os = require('os')
 
 const lineReader = readline.createInterface({
   input: fs.createReadStream('./src/assets/Gemfile')
 });
 
-let writer = fs.createWriteStream('./dist/Gemfile', {
+const writer = fs.createWriteStream('./dist/Gemfile', {
   flags: 'w+'
 })
 
