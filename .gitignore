@@ -8,4 +8,4 @@ package-lock.json
 /dist/Gemfile
 
 # Assets folder
-/src/assets/*
+/src/assets/Gemfile
