@@ -4,8 +4,6 @@ package-lock.json
 # node_modules folder
 /node_modules/*
 
-# Dist files
+# Gemfiles
 /dist/Gemfile
-
-# Assets folder
-/src/assets/*
+/src/assets/Gemfile
