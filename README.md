@@ -13,12 +13,12 @@ $ cd ./rails-gemfile-update
 $ npm install
 ```
 
-## Como configurar?
+## 2- Como configurar?
 
 Para atualizar o seu arquivo Gemfile você precisará fazer uma cópia do seu arquivo para
 dentro da pasta do projeto com o caminho: `./src/assets`. O nome do arquivo deve ser `Gemfile`
 
-## Após configurar, o que devo fazer?
+## 3- Após configurar, o que devo fazer?
 
 Após fazer a configuração explicada anteriormente, basta executar o seguinte comando
 na pasta do projeto:
