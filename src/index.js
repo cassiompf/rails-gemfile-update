@@ -14,11 +14,27 @@ const isValidGem = (line) => line.trim().startsWith('gem');
 
 const getGemName = (line) => line.trim().split(',')[0].replace('gem', '').replace(/\'/g, '').trim();
 
-const getLastVersionGem = async (gem) => {
+const getLastRubyVersion = () => {
+  return new Promise((resolve, reject) => {
+    axios.get('https://www.ruby-lang.org/en/downloads/releases').then(({ data }) => {
+      const { document } = new JSDOM(data).window;
+
+      const scraping = document.querySelector('.release-list > tbody > tr:nth-child(2)');
+
+      const lastRubyVersion = {
+        version: scraping.querySelector('td:nth-child(1)').innerHTML.split(' ')[1],
+        date: scraping.querySelector('td:nth-child(2)').innerHTML
+      };
+
+      resolve(lastRubyVersion);
+    }).catch((err) => reject(err));
+  })
+};
+
+const getLastGemVersion = (gem) => {
   return new Promise((resolve, reject) => {
     axios.get(`https://rubygems.org/gems/${gem}/versions`)
-    .then((response) => {
-        const { data } = response;
+    .then(({ data }) => {
         const { document } = new JSDOM(data).window;
 
         const scraping = document.querySelector('.versions .t-list__items .gem__version-wrap:first-child');
@@ -52,18 +68,25 @@ const updateGemLine = (line, lastGemVersion) => {
 };
 
 lineReader.on('line', async (line) => {
+  lineReader.pause();
   if (isValidGem(line)) {
-    lineReader.pause();
-
     const gem = getGemName(line);
-    const scraping = await getLastVersionGem(gem);
+    const { version, date, size } = await getLastGemVersion(gem);
 
     console.log(`  Atualizando a gem ${gem}:`);
-    console.log(`   - Versão: ${scraping.version};`);
-    console.log(`   - Data da atualização: ${scraping.date};`);
-    console.log(`   - Tamanho da atualização: ${scraping.size};`);
+    console.log(`   - Versão: ${version};`);
+    console.log(`   - Data da atualização: ${date};`);
+    console.log(`   - Tamanho da atualização: ${size};`);
     console.log('');
-    writer.write(updateGemLine(line, scraping.version));
+    writer.write(updateGemLine(line, version));
+  } else if (line.startsWith('ruby \'')) {
+    const { version, date } = await getLastRubyVersion();
+
+    console.log(`  Atualizando o Ruby:`);
+    console.log(`   - Versão mais recente: ${version};`);
+    console.log(`   - Data da atualização: ${date};`);
+    console.log('');
+    writer.write(`ruby '${version}'`);
   } else {
     writer.write(line);
   }
